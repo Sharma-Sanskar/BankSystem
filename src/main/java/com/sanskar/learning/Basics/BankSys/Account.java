@@ -1,17 +1,19 @@
 package com.sanskar.learning.Basics.BankSys;
+import java.io.Serializable;
 
-public class Account {
+public class Account implements  Serializable{
     final private int accNum;
-    protected String name;
-    protected double balance;
-
-    Account(String name, double balance,int accNum){
+    private final String name;
+    private double balance;
+    private String password;
+    Account(String name, double balance,int accNum,String password){
         this.name = name;
         this.balance = balance;
         this.accNum = accNum;
+        this.password = password;
     }
 
-    protected void withdraw(double amount){
+    public void withdraw(double amount){
         if (balance < amount){
             System.out.println("Insufficient Balance");
             return;
@@ -21,12 +23,15 @@ public class Account {
         System.out.println("Remaining Balance: " + balance);
     }
 
-    protected void deposit(double amount){
+    public void deposit(double amount){
         balance += amount;
         System.out.println("Deposited amount: " + amount);
         System.out.println("New balance: " + balance);
     }
 
+    public String getName(){
+        return name;
+    }
     public double getBalance(){
         return balance;
     }
@@ -34,9 +39,13 @@ public class Account {
     public int getAccNum(){
         return accNum;
     }
-    protected void accDetails(){
-        System.out.println("Name: " + name);
-        System.out.println("Account No.: " + accNum);
-        System.out.println("Balance: "+ balance);
+
+    public String getPassword(){
+        return password;
+    }
+    public void accDetails(){
+        System.out.println("Name: " + getName());
+        System.out.println("Account No.: " + getAccNum());
+        System.out.println("Balance: "+ getBalance());
     }
 }
