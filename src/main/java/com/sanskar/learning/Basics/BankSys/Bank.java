@@ -2,6 +2,7 @@ package com.sanskar.learning.Basics.BankSys;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
 
 public class Bank {
 
@@ -45,8 +46,25 @@ public class Bank {
         return null;
     }
 
-    public void loadBankData() {
+    public void loadDataFromFile() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("bankdata.ser"))) {
+            BankData data = (BankData) in.readObject();
+            this.accounts = data.accounts;
+            this.initialAccountNum = data.initialAccountNum;
+            System.out.println("✅ Bank data loaded.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("⚠️ No saved data found. Starting fresh.");
+        }
+    }
 
+    public void saveDataToFile() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("bankdata.ser"))) {
+            BankData data = new BankData(accounts, initialAccountNum);
+            out.writeObject(data);
+            System.out.println("✅ Bank data saved.");
+        } catch (IOException e) {
+            System.out.println("❌ Failed to save data: " + e.getMessage());
+        }
     }
 
     public void deleteAcc(int accNum) {

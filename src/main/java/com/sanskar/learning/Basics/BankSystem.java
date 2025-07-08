@@ -23,7 +23,7 @@ public class BankSystem {
         String accPassword = sc.nextLine();
 
         Bank b1 = new Bank();
-
+        b1.loadDataFromFile();
         Account acc = b1.userAuth(accNum, accPassword);
 
 
@@ -67,12 +67,14 @@ public class BankSystem {
                         System.out.println("Enter amount to withdraw: ");
                         amount = sc.nextInt();
                         acc.withdraw(amount);
+                        b1.saveDataToFile();
                         pause(sc);
                         break;
                     case 3:
                         System.out.println("Enter amount to deposit");
                         amount = sc.nextInt();
                         acc.deposit(amount);
+                        b1.saveDataToFile();
                         pause(sc);
                         break;
                     case 4:
@@ -85,10 +87,12 @@ public class BankSystem {
                         } else {
                             System.out.println("Wrong acc number.");
                         }
+                        b1.saveDataToFile();
                         pause(sc);
                         break;
                 }
             } while (choice != 0);
         }
+        b1.saveDataToFile();
     }
 }
