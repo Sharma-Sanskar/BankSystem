@@ -123,7 +123,6 @@ public class Admin extends Account {
         }
     }
 
-
     public void controlPanel(Bank bank) {
         System.out.println("Welcome Admin");
         System.out.println("What are we going to do today?");

@@ -13,7 +13,6 @@ public class Account implements Serializable {
     public String getDateAndTime() {
         LocalDateTime timeStamp = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        String formatted = timeStamp.format(formatter); // formatted date and time
         return timeStamp.format(formatter);
     }
 
@@ -33,6 +32,7 @@ public class Account implements Serializable {
 
 
     public void withdraw(double amount) {
+        System.out.println("Current balance: " + getBalance());
         if (balance < amount) {
             System.out.println("Insufficient Balance");
             return;
@@ -40,15 +40,20 @@ public class Account implements Serializable {
         balance -= amount;
         System.out.println("Amount Withdrawn: " + amount);
         System.out.println("Remaining Balance: " + balance);
-        String log = "Amount withdrawn: " + amount + "\n" + "Remaining Balance: " + getBalance() + "\n" + "Time: " + getDateAndTime() + "\n";
+        String log = "Amount withdrawn: " + amount + "\n" + "Balance: " + getBalance() + "\n" + "Time: " + getDateAndTime() + "\n";
         System.out.println(log);
         transactionHistory.add(log);
     }
 
+
     public void deposit(double amount) {
+        System.out.println("Current Balance: " + getBalance());
         balance += amount;
         System.out.println("Deposited amount: " + amount);
         System.out.println("New balance: " + balance);
+        String log = "Amount Deposited: " + amount + "\n" + "Balance: " + getBalance() + "\n" + "Time: " + getDateAndTime() + "\n";
+        System.out.println(log);
+        transactionHistory.add(log);
     }
 
     public String getName() {

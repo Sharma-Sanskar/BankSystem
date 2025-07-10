@@ -98,7 +98,6 @@ public class BankSystem {
                         pause(sc);
                         break;
                 }
-                System.out.println(acc.transactionHistory);
             } while (choice != 0);
             b1.saveDataToFile();
         }
