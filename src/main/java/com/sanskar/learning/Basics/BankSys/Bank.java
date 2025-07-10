@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
+
 public class Bank {
 
     Scanner sc = new Scanner(System.in);
+    private int initialAccountNum = 100;
 
     private ArrayList<Account> accounts = new ArrayList<>(); // Store all accounts
-    private int initialAccountNum = 100;
+
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
 
     public int createAcc() {
 
@@ -37,6 +42,10 @@ public class Bank {
     }
 
     public Account userAuth(int accNum, String password) {
+        if (Admin.adminAccountAccess(accNum, password)) {
+            System.out.println("Admin Access");
+            return new Admin();
+        }
         for (Account acc : accounts) {
             if (acc.getAccNum() == accNum && acc.getPassword().equals(password)) {
                 System.out.println("Welcome " + acc.getName());
@@ -47,23 +56,26 @@ public class Bank {
     }
 
     public void loadDataFromFile() {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("bankdata.ser"))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("Accounts.ser"))) {
             BankData data = (BankData) in.readObject();
             this.accounts = data.accounts;
             this.initialAccountNum = data.initialAccountNum;
-            System.out.println("✅ Bank data loaded.");
+            System.out.println("Bank data loaded.");
+            System.out.println("No. of Accounts loaded: " + accounts.size());
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("⚠️ No saved data found. Starting fresh.");
+            System.out.println("No saved data found. Starting fresh.");
+//            e.printStackTrace();
         }
     }
 
     public void saveDataToFile() {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("bankdata.ser"))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Accounts.ser"))) {
             BankData data = new BankData(accounts, initialAccountNum);
             out.writeObject(data);
-            System.out.println("✅ Bank data saved.");
+            System.out.println("Bank data saved.");
         } catch (IOException e) {
-            System.out.println("❌ Failed to save data: " + e.getMessage());
+            System.out.println("Failed to save data: " + e.getMessage());
+//            e.printStackTrace();
         }
     }
 
@@ -81,6 +93,15 @@ public class Bank {
         for (Account account : accounts) {
             if (account.getAccNum() == accNum) {
                 return account;
+            }
+        }
+        return null;
+    }
+
+    public Account searchAccByName(String name) {
+        for (Account acc : getAccounts()) {
+            if (acc.getName().equalsIgnoreCase(name)) {
+                return acc;
             }
         }
         return null;

@@ -13,7 +13,12 @@ public class BankSystem {
     }
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
+        Bank b1 = new Bank();
+        b1.loadDataFromFile();
+//        pause(sc);
+
         System.out.println("Welcome to your Bank!");
         System.out.println("Enter your Acc no.");
         int accNum = sc.nextInt();
@@ -22,10 +27,12 @@ public class BankSystem {
         System.out.println("Enter your Password");
         String accPassword = sc.nextLine();
 
-        Bank b1 = new Bank();
-        b1.loadDataFromFile();
-        Account acc = b1.userAuth(accNum, accPassword);
 
+        Account acc = b1.userAuth(accNum, accPassword);
+        if (acc instanceof Admin) {
+            ((Admin) acc).controlPanel(b1);
+            return;
+        }
 
         if (acc == null) {
             System.out.println("Account not found, create one?: Y/N");
@@ -67,14 +74,14 @@ public class BankSystem {
                         System.out.println("Enter amount to withdraw: ");
                         amount = sc.nextInt();
                         acc.withdraw(amount);
-                        b1.saveDataToFile();
+//                        b1.saveDataToFile();
                         pause(sc);
                         break;
                     case 3:
                         System.out.println("Enter amount to deposit");
                         amount = sc.nextInt();
                         acc.deposit(amount);
-                        b1.saveDataToFile();
+//                        b1.saveDataToFile();
                         pause(sc);
                         break;
                     case 4:
@@ -91,8 +98,9 @@ public class BankSystem {
                         pause(sc);
                         break;
                 }
+                System.out.println(acc.transactionHistory);
             } while (choice != 0);
+            b1.saveDataToFile();
         }
-        b1.saveDataToFile();
     }
 }
