@@ -1,6 +1,6 @@
-package com.sanskar.learning.Basics;
+package com.sanskar.learning.Bank_System;
 
-import com.sanskar.learning.Basics.BankSys.*;
+import com.sanskar.learning.Bank_System.BankSys.*;
 
 import java.util.Scanner;
 

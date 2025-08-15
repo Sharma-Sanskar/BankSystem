@@ -1,4 +1,4 @@
-package com.sanskar.learning.Basics.BankSys;
+package com.sanskar.learning.Bank_System.BankSys;
 
 import java.io.Serial;
 import java.io.Serializable;
