@@ -1,6 +1,6 @@
-package com.sanskar.learning.Basics.BankSys;
+package com.sanskar.learning.Bank_System.BankSys;
 
-import java.io.IOException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,11 +10,13 @@ public class BankData implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L; // Store version ID
     public ArrayList<Account> accounts; // Only initialize accounts arraylist
-    public int initialAccountNum = 100;
+    //    public ArrayList<String> transactionHistory;
+    public int initialAccountNum;
 
     BankData(ArrayList<Account> accounts, int initialAccountNum) {
         this.accounts = accounts;
         this.initialAccountNum = initialAccountNum;
+//        this.transactionHistory = transactionHistory;
     }
 
 }

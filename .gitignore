@@ -39,4 +39,5 @@ build/
 
 ### Misc ###
 *.class
-*.iml.idea/out/
+.idea/
+out/
